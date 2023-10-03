@@ -2,10 +2,11 @@ const express = require("express") // ini perlu
 const cors = require('cors');
 const path = require('path'); //tidak perlu npm install
 const connection = require('./app/model/index')
-
 // init express server and router
 const app = express();
 const mainRouter = require('./app/routes');
+require('dotenv').config()
+
 app.use(cors());
 app.use(express.json()); // supaya express bisa response json
 app.use(express.urlencoded({ extended: false })); // supaya express bisa menerima body
@@ -13,11 +14,6 @@ app.use(express.urlencoded({ extended: false })); // supaya express bisa menerim
 // http router
 app.use("/", mainRouter);
 
-
-// static router
-app.use('/static', express.static(path.join(__dirname, 'static')));
-app.set('view engine', 'ejs')
-//app.set('views', path.join(__dirname, './static'))
 
 const port = 3000
 app.listen(port, function(){
